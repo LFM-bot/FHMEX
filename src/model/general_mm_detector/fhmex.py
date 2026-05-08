@@ -47,16 +47,16 @@ class FHMEX(AbstractDetector):
         model_size = 'base'
         self.image_model = mae_vit.__dict__["mae_vit_{}_patch16".format(model_size)](norm_pix_loss=False)
         checkpoint = torch.load(
-            '/mnt1/userhome/tangpang/shichenglong/proj/LLMs/mae_checkpoint/mae_pretrain_vit_{}.pth'.format(
+            '/mnt1/userhome/proj/LLMs/mae_checkpoint/mae_pretrain_vit_{}.pth'.format(
                 model_size), map_location="cpu"
         )
         self.image_model.load_state_dict(checkpoint["model"], strict=False)
 
         # Text encoder: BERT
         model_name = (
-            '/mnt1/userhome/tangpang/shichenglong/proj/LLMs/bert-base-chinese'
+            '/mnt1/userhome/proj/LLMs/bert-base-chinese'
             if self.dataset in chinese_datasets
-            else "/mnt1/userhome/tangpang/shichenglong/proj/LLMs/bert-base-uncased"
+            else "/mnt1/userhome/proj/LLMs/bert-base-uncased"
         )
         print("BERT: using {}".format(model_name))
         self.text_model = BertModel.from_pretrained(model_name)
@@ -686,6 +686,3 @@ def FHMEX_config():
 
     return parser
 
-
-if __name__ == '__main__':
-    print(FreqMOE_V3_config())
