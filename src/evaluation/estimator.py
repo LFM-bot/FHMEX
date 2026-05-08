@@ -1,6 +1,6 @@
 import logging
 import re
-
+from src.evaluation.metrics import Metric
 import numpy as np
 import torch
 from sklearn.metrics import precision_score, recall_score, f1_score, confusion_matrix, classification_report, \
@@ -96,24 +96,6 @@ class Estimator:
     def test_on_cpu(self, test_loader, model, mode='test', save_emb=False):
         model.eval()
 
-        if save_emb:
-            all_labels = []
-            all_news_emb = []
-            test_iter = tqdm(enumerate(test_loader), total=len(test_loader), desc='save news embeddings')
-            for _, batch_dict in test_iter:
-                tensor_to_device(batch_dict, self.dev)
-                batch_news_emb = model.get_news_emb(batch_dict)
-                all_news_emb.append(batch_news_emb)
-                all_labels.append(batch_dict['label'])
-
-            all_labels = torch.cat(all_labels, dim=0).detach().cpu().numpy()
-            all_news_emb = torch.cat(all_news_emb, dim=0).detach().cpu().numpy()
-
-            np.save(f'vis/{self.config.dataset}-{self.config.model}-emb', all_news_emb)
-            np.save(f'vis/{self.config.dataset}-{self.config.model}-label', all_labels)
-
-            logging.info('Saving news embeddings... Done.')
-
         self._reset_metrics()
 
         eval_iter = tqdm(enumerate(test_loader), total=len(test_loader))
@@ -139,8 +121,6 @@ class Estimator:
         best_threshold = 0.5
         best_acc = 0.0
 
-        # 1. 遍历候选阈值寻找最优 ACC
-        # 也可以使用 np.unique(y_logits) 作为候选阈值以获得更精确的结果
         thresholds = np.linspace(0, 1, 101)
 
         for t in thresholds:
@@ -150,15 +130,11 @@ class Estimator:
                 best_acc = acc
                 best_threshold = t
 
-        # 2. 使用最优阈值计算最终预测结果
         final_preds = (y_logits >= best_threshold).astype(int)
 
-        # 3. 获取详细指标
         logging.info(f'Best threshold: {best_threshold}')
         report = classification_report(y_true, final_preds, digits=4)
-        # conf_matrix = confusion_matrix(y_true, final_preds)
         logging.info(report)
-        # print(conf_matrix)
 
         test_acc = best_acc
         precision = precision_score(y_true, final_preds, average='macro', zero_division=0)
@@ -184,20 +160,6 @@ class Estimator:
             for k in self.k_list:
                 score = getattr(Metric, f'{metric.upper()}')(top_k_item_sorted, target, k)
                 self.metric_res_dict[f'{metric}@{k}'] += score
-
-    def calc_metrics_(self, prediction, target):
-        _, topk_index = torch.topk(prediction, self.max_k, -1)  # [batch, max_k]
-        topk_socre = torch.gather(prediction, index=topk_index, dim=-1)
-        idx_sorted = torch.argsort(topk_socre, dim=-1, descending=True)
-        max_k_item_sorted = torch.gather(topk_index, index=idx_sorted, dim=-1)
-
-        metric_res_dict = {}
-        for metric in self.metrics:
-            for k in self.k_list:
-                score = getattr(Metric, f'{metric.upper()}')(max_k_item_sorted, target, k)
-                metric_res_dict[f'{metric}@{k}'] += score
-
-        return metric_res_dict
 
     def neg_sample_select(self, data_dict, prediction):
         if self.mask_history:

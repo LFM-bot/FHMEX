@@ -4,6 +4,15 @@ import numpy as np
 import torch
 
 
+class Metric:
+    @staticmethod
+    def HIT(prediction, target, k):
+        prediction, target = Metric.process(prediction, target, k)
+        hit = ((prediction - target) == 0).sum(dim=-1).double()
+        hit = hit.sum().item()
+        return hit
+
+
 def get_metric(pred_list, topk=10):
     NDCG = 0.0
     HIT = 0.0
@@ -85,4 +94,3 @@ def idcg_k(k):
         return 1.0
     else:
         return res
-

@@ -372,11 +372,6 @@ class FHMEX(AbstractDetector):
 
         return final_output, image_only_output, text_only_output, spe_loss, align_loss, final_feature_main_task_lite
 
-    def get_news_emb(self, data_dict):
-        news_emb = self.inner_forward(data_dict)[-1]
-
-        return news_emb
-
     def forward(self, data_dict):
 
         final_output = self.inner_forward(data_dict)[0]
@@ -392,11 +387,7 @@ class FHMEX(AbstractDetector):
         loss_image = self.criterion(image_only_output, labels.float().unsqueeze(1))
         loss_text = self.criterion(text_only_output, labels.float().unsqueeze(1))
         loss_single_modal = (loss_text + loss_image) / 2
-        # loss_cl = self.nce_loss(image_feature, text_feature)
-        # loss = loss_main + 1. * loss_single_modal + self.lamda * loss_cl
         loss = loss_main + 1. * loss_single_modal + self.lamda1 * spe_loss + (1 - self.lamda1) * align_loss
-        # loss = loss_main + 1. * loss_single_modal + self.lamda1 * spe_loss
-        # loss = loss_main + 1. * loss_single_modal
 
         return loss
 
