@@ -1,0 +1,1335 @@
+2026-04-08 18:04:48 INFO     log save at : log/weibo_CN/FreqMOE_V3-B24-kernel-19_1.log
+2026-04-08 18:04:48 INFO     model save at: save/FreqMOE_V3-weibo_CN-B24-kernel-19-2026-04-08_18-04-48.pth
+2026-04-08 18:05:00 INFO     Loaded 13274 image tensors from dataset/weibo_CN/img_name2tensor_only_resize.pkl.
+2026-04-08 18:05:00 INFO     Use BMRTrainer.
+2026-04-08 18:05:04 INFO     Finetune image/text encoders.
+2026-04-08 18:05:04 INFO     [1] Model Hyper-Parameter ---------------------
+2026-04-08 18:05:04 INFO     model: FreqMOE_V3
+2026-04-08 18:05:04 INFO     model_type: GENERAL
+2026-04-08 18:05:04 INFO     num_expert: 2
+2026-04-08 18:05:04 INFO     n_layers: 1
+2026-04-08 18:05:04 INFO     kernel_size: 19
+2026-04-08 18:05:04 INFO     num_bands: 6
+2026-04-08 18:05:04 INFO     freq_dropout_prob: 0.4
+2026-04-08 18:05:04 INFO     lamda1: 0.1
+2026-04-08 18:05:04 INFO     lamda2: 0.1
+2026-04-08 18:05:04 INFO     [2] Experiment Hyper-Parameter ----------------
+2026-04-08 18:05:04 INFO     [2-1] data hyper-parameter --------------------
+2026-04-08 18:05:04 INFO     dataset: weibo_CN
+2026-04-08 18:05:04 INFO     item_id_pad: 0
+2026-04-08 18:05:04 INFO     data_aug: False
+2026-04-08 18:05:04 INFO     seq_filter_len: 0
+2026-04-08 18:05:04 INFO     if_filter_target: False
+2026-04-08 18:05:04 INFO     max_len: 50
+2026-04-08 18:05:04 INFO     do_test_with_eval: False
+2026-04-08 18:05:04 INFO     [2-2] pretraining hyper-parameter -------------
+2026-04-08 18:05:04 INFO     do_pretraining: False
+2026-04-08 18:05:04 INFO     pretraining_task: MISP
+2026-04-08 18:05:04 INFO     pretraining_epoch: 10
+2026-04-08 18:05:04 INFO     pretraining_batch: 512
+2026-04-08 18:05:04 INFO     pretraining_lr: 0.001
+2026-04-08 18:05:04 INFO     pretraining_l2: 0.0
+2026-04-08 18:05:04 INFO     [2-3] training hyper-parameter ----------------
+2026-04-08 18:05:04 INFO     epoch_num: 50
+2026-04-08 18:05:04 INFO     train_batch: 24
+2026-04-08 18:05:04 INFO     learning_rate: 5e-05
+2026-04-08 18:05:04 INFO     l2: 0.01
+2026-04-08 18:05:04 INFO     patience: 50
+2026-04-08 18:05:04 INFO     device: cuda:0
+2026-04-08 18:05:04 INFO     num_worker: 4
+2026-04-08 18:05:04 INFO     seed: 2027
+2026-04-08 18:05:04 INFO     [2-4] evaluation hyper-parameter --------------
+2026-04-08 18:05:04 INFO     split_type: valid_and_test
+2026-04-08 18:05:04 INFO     split_mode: PS
+2026-04-08 18:05:04 INFO     eval_mode: full
+2026-04-08 18:05:04 INFO     metric: ['acc', 'precision', 'recall', 'f1']
+2026-04-08 18:05:04 INFO     k: [5, 10]
+2026-04-08 18:05:04 INFO     valid_metric: acc
+2026-04-08 18:05:04 INFO     eval_batch: 24
+2026-04-08 18:05:04 INFO     mask_history: False
+2026-04-08 18:05:04 INFO     test_device: cpu
+2026-04-08 18:05:04 INFO     [2-5] save hyper-parameter --------------------
+2026-04-08 18:05:04 INFO     log_save: log
+2026-04-08 18:05:04 INFO     save: save
+2026-04-08 18:05:04 INFO     model_saved: None
+2026-04-08 18:05:04 INFO     [3] Data Statistic ----------------------------
+2026-04-08 18:05:04 INFO     dataset: weibo_CN
+2026-04-08 18:05:04 INFO     event number: 1
+2026-04-08 18:05:04 INFO     image number: 7601
+2026-04-08 18:05:04 INFO     total size: 9224 (fake:4929, real:4295)
+2026-04-08 18:05:04 INFO     data without augmentation:
+2026-04-08 18:05:04 INFO     train size: 5982(fake:3285, real:2697) eval size: 1621(fake:822, real:799) test size: 1621(fake:822, real:799)
+2026-04-08 18:05:04 INFO     [1] Model Architecture ------------------------
+2026-04-08 18:05:04 INFO     total parameters: 401767205
+2026-04-08 18:05:04 INFO     FreqMOE_V3(
+  (cross_entropy): CrossEntropyLoss()
+  (image_model): MaskedAutoencoderViT(
+    (patch_embed): PatchEmbed(
+      (proj): Conv2d(3, 768, kernel_size=(16, 16), stride=(16, 16))
+      (norm): Identity()
+    )
+    (blocks): ModuleList(
+      (0-11): 12 x Block(
+        (norm1): LayerNorm((768,), eps=1e-06, elementwise_affine=True)
+        (attn): Attention(
+          (qkv): Linear(in_features=768, out_features=2304, bias=True)
+          (q_norm): Identity()
+          (k_norm): Identity()
+          (attn_drop): Dropout(p=0.0, inplace=False)
+          (norm): Identity()
+          (proj): Linear(in_features=768, out_features=768, bias=True)
+          (proj_drop): Dropout(p=0.0, inplace=False)
+        )
+        (ls1): Identity()
+        (drop_path1): Identity()
+        (norm2): LayerNorm((768,), eps=1e-06, elementwise_affine=True)
+        (mlp): Mlp(
+          (fc1): Linear(in_features=768, out_features=3072, bias=True)
+          (act): GELU(approximate='none')
+          (drop1): Dropout(p=0.0, inplace=False)
+          (norm): Identity()
+          (fc2): Linear(in_features=3072, out_features=768, bias=True)
+          (drop2): Dropout(p=0.0, inplace=False)
+        )
+        (ls2): Identity()
+        (drop_path2): Identity()
+      )
+    )
+    (norm): LayerNorm((768,), eps=1e-06, elementwise_affine=True)
+    (decoder_embed): Linear(in_features=768, out_features=512, bias=True)
+    (decoder_blocks): ModuleList(
+      (0-7): 8 x Block(
+        (norm1): LayerNorm((512,), eps=1e-06, elementwise_affine=True)
+        (attn): Attention(
+          (qkv): Linear(in_features=512, out_features=1536, bias=True)
+          (q_norm): Identity()
+          (k_norm): Identity()
+          (attn_drop): Dropout(p=0.0, inplace=False)
+          (norm): Identity()
+          (proj): Linear(in_features=512, out_features=512, bias=True)
+          (proj_drop): Dropout(p=0.0, inplace=False)
+        )
+        (ls1): Identity()
+        (drop_path1): Identity()
+        (norm2): LayerNorm((512,), eps=1e-06, elementwise_affine=True)
+        (mlp): Mlp(
+          (fc1): Linear(in_features=512, out_features=2048, bias=True)
+          (act): GELU(approximate='none')
+          (drop1): Dropout(p=0.0, inplace=False)
+          (norm): Identity()
+          (fc2): Linear(in_features=2048, out_features=512, bias=True)
+          (drop2): Dropout(p=0.0, inplace=False)
+        )
+        (ls2): Identity()
+        (drop_path2): Identity()
+      )
+    )
+    (decoder_norm): LayerNorm((512,), eps=1e-06, elementwise_affine=True)
+    (decoder_pred): Linear(in_features=512, out_features=768, bias=True)
+  )
+  (text_model): BertModel(
+    (embeddings): BertEmbeddings(
+      (word_embeddings): Embedding(21128, 768, padding_idx=0)
+      (position_embeddings): Embedding(512, 768)
+      (token_type_embeddings): Embedding(2, 768)
+      (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+      (dropout): Dropout(p=0.1, inplace=False)
+    )
+    (encoder): BertEncoder(
+      (layer): ModuleList(
+        (0-11): 12 x BertLayer(
+          (attention): BertAttention(
+            (self): BertSdpaSelfAttention(
+              (query): Linear(in_features=768, out_features=768, bias=True)
+              (key): Linear(in_features=768, out_features=768, bias=True)
+              (value): Linear(in_features=768, out_features=768, bias=True)
+              (dropout): Dropout(p=0.1, inplace=False)
+            )
+            (output): BertSelfOutput(
+              (dense): Linear(in_features=768, out_features=768, bias=True)
+              (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+              (dropout): Dropout(p=0.1, inplace=False)
+            )
+          )
+          (intermediate): BertIntermediate(
+            (dense): Linear(in_features=768, out_features=3072, bias=True)
+            (intermediate_act_fn): GELUActivation()
+          )
+          (output): BertOutput(
+            (dense): Linear(in_features=3072, out_features=768, bias=True)
+            (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+            (dropout): Dropout(p=0.1, inplace=False)
+          )
+        )
+      )
+    )
+    (pooler): BertPooler(
+      (dense): Linear(in_features=768, out_features=768, bias=True)
+      (activation): Tanh()
+    )
+  )
+  (text_attention): TokenAttention(
+    (attention_layer): Sequential(
+      (0): Linear(in_features=768, out_features=768, bias=True)
+      (1): SiLU()
+      (2): Linear(in_features=768, out_features=1, bias=True)
+    )
+  )
+  (image_attention): TokenAttention(
+    (attention_layer): Sequential(
+      (0): Linear(in_features=768, out_features=768, bias=True)
+      (1): SiLU()
+      (2): Linear(in_features=768, out_features=1, bias=True)
+    )
+  )
+  (mm_attention): TokenAttention(
+    (attention_layer): Sequential(
+      (0): Linear(in_features=768, out_features=768, bias=True)
+      (1): SiLU()
+      (2): Linear(in_features=768, out_features=1, bias=True)
+    )
+  )
+  (text_experts): ModuleList(
+    (0): GlobalFilterBlock(
+      (gfm_encoder): GFMEncoder(
+        (layer): ModuleList(
+          (0): GFMLayer(
+            (filterlayer): GFMFilterLayer(
+              (out_dropout): Dropout(p=0.4, inplace=False)
+              (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+              (freq_conv_encoder): Sequential(
+                (0): Conv1d(768, 768, kernel_size=(19,), stride=(1,), padding=(9,), padding_mode=reflect)
+                (1): BatchNorm1d(768, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              )
+            )
+            (intermediate): Intermediate(
+              (dense_1): Linear(in_features=768, out_features=3072, bias=True)
+              (dense_2): Linear(in_features=3072, out_features=768, bias=True)
+              (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+              (dropout): Dropout(p=0.0, inplace=False)
+            )
+            (dropout): Dropout(p=0.0, inplace=False)
+            (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+          )
+        )
+      )
+      (freq_conv_encoder): Sequential(
+        (0): Conv1d(768, 768, kernel_size=(19,), stride=(1,), padding=(9,), padding_mode=reflect)
+        (1): BatchNorm1d(768, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+      (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+      (dropout): Dropout(p=0.0, inplace=False)
+    )
+    (1): LocalFilterBlock(
+      (lfm_encoder): LFMEncoder(
+        (layer): ModuleList(
+          (0): LFMLayer(
+            (filterlayer): LFMfilterLayer(
+              (out_dropout): Dropout(p=0.4, inplace=False)
+              (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+              (LFMgate): LFMGate(
+                (gate): Sequential(
+                  (0): Linear(in_features=1536, out_features=768, bias=True)
+                  (1): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+                  (2): GELU(approximate='none')
+                  (3): Linear(in_features=768, out_features=384, bias=True)
+                  (4): GELU(approximate='none')
+                  (5): Linear(in_features=384, out_features=6, bias=True)
+                )
+              )
+              (freq_conv_encoder): Sequential(
+                (0): Conv1d(768, 768, kernel_size=(19,), stride=(1,), padding=(9,), padding_mode=reflect)
+                (1): BatchNorm1d(768, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              )
+            )
+            (intermediate): Intermediate(
+              (dense_1): Linear(in_features=768, out_features=3072, bias=True)
+              (dense_2): Linear(in_features=3072, out_features=768, bias=True)
+              (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+              (dropout): Dropout(p=0.0, inplace=False)
+            )
+          )
+        )
+      )
+      (freq_conv_encoder): Sequential(
+        (0): Conv1d(768, 768, kernel_size=(19,), stride=(1,), padding=(9,), padding_mode=reflect)
+        (1): BatchNorm1d(768, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+      (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+      (dropout): Dropout(p=0.0, inplace=False)
+    )
+  )
+  (image_experts): ModuleList(
+    (0): GlobalFilterBlock(
+      (gfm_encoder): GFMEncoder(
+        (layer): ModuleList(
+          (0): GFMLayer(
+            (filterlayer): GFMFilterLayer(
+              (out_dropout): Dropout(p=0.4, inplace=False)
+              (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+              (freq_conv_encoder): Sequential(
+                (0): Conv1d(768, 768, kernel_size=(19,), stride=(1,), padding=(9,), padding_mode=reflect)
+                (1): BatchNorm1d(768, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              )
+            )
+            (intermediate): Intermediate(
+              (dense_1): Linear(in_features=768, out_features=3072, bias=True)
+              (dense_2): Linear(in_features=3072, out_features=768, bias=True)
+              (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+              (dropout): Dropout(p=0.0, inplace=False)
+            )
+            (dropout): Dropout(p=0.0, inplace=False)
+            (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+          )
+        )
+      )
+      (freq_conv_encoder): Sequential(
+        (0): Conv1d(768, 768, kernel_size=(19,), stride=(1,), padding=(9,), padding_mode=reflect)
+        (1): BatchNorm1d(768, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+      (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+      (dropout): Dropout(p=0.0, inplace=False)
+    )
+    (1): LocalFilterBlock(
+      (lfm_encoder): LFMEncoder(
+        (layer): ModuleList(
+          (0): LFMLayer(
+            (filterlayer): LFMfilterLayer(
+              (out_dropout): Dropout(p=0.4, inplace=False)
+              (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+              (LFMgate): LFMGate(
+                (gate): Sequential(
+                  (0): Linear(in_features=1536, out_features=768, bias=True)
+                  (1): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+                  (2): GELU(approximate='none')
+                  (3): Linear(in_features=768, out_features=384, bias=True)
+                  (4): GELU(approximate='none')
+                  (5): Linear(in_features=384, out_features=6, bias=True)
+                )
+              )
+              (freq_conv_encoder): Sequential(
+                (0): Conv1d(768, 768, kernel_size=(19,), stride=(1,), padding=(9,), padding_mode=reflect)
+                (1): BatchNorm1d(768, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              )
+            )
+            (intermediate): Intermediate(
+              (dense_1): Linear(in_features=768, out_features=3072, bias=True)
+              (dense_2): Linear(in_features=3072, out_features=768, bias=True)
+              (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+              (dropout): Dropout(p=0.0, inplace=False)
+            )
+          )
+        )
+      )
+      (freq_conv_encoder): Sequential(
+        (0): Conv1d(768, 768, kernel_size=(19,), stride=(1,), padding=(9,), padding_mode=reflect)
+        (1): BatchNorm1d(768, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+      (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+      (dropout): Dropout(p=0.0, inplace=False)
+    )
+  )
+  (mm_experts): ModuleList(
+    (0): CrossModalGlobalFilterBlock(
+      (gfm_encoder): CrossModalGFMEncoder(
+        (layer): ModuleList(
+          (0): CrossModalGFMLayer(
+            (filterlayer): CM_GFMFilterLayer(
+              (out_dropout): Dropout(p=0.4, inplace=False)
+              (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+              (freq_conv_encoder): Sequential(
+                (0): Conv1d(768, 768, kernel_size=(19,), stride=(1,), padding=(9,), padding_mode=reflect)
+                (1): BatchNorm1d(768, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              )
+            )
+            (intermediate): Intermediate(
+              (dense_1): Linear(in_features=768, out_features=3072, bias=True)
+              (dense_2): Linear(in_features=3072, out_features=768, bias=True)
+              (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+              (dropout): Dropout(p=0.0, inplace=False)
+            )
+            (dropout): Dropout(p=0.0, inplace=False)
+            (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+          )
+        )
+      )
+      (freq_conv_encoder): Sequential(
+        (0): Conv1d(768, 768, kernel_size=(19,), stride=(1,), padding=(9,), padding_mode=reflect)
+        (1): BatchNorm1d(768, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+      (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+      (dropout): Dropout(p=0.0, inplace=False)
+    )
+    (1): CrossModalLocalFilterBlock(
+      (lfm_encoder): CrossModalLFMEncoder(
+        (layer): ModuleList(
+          (0): CrossModalLFMLayer(
+            (filterlayer): CM_LFMfilterLayer(
+              (out_dropout): Dropout(p=0.4, inplace=False)
+              (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+              (LFMgate): LFMGate(
+                (gate): Sequential(
+                  (0): Linear(in_features=1536, out_features=768, bias=True)
+                  (1): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+                  (2): GELU(approximate='none')
+                  (3): Linear(in_features=768, out_features=384, bias=True)
+                  (4): GELU(approximate='none')
+                  (5): Linear(in_features=384, out_features=6, bias=True)
+                )
+              )
+              (freq_conv_encoder): Sequential(
+                (0): Conv1d(768, 768, kernel_size=(19,), stride=(1,), padding=(9,), padding_mode=reflect)
+                (1): BatchNorm1d(768, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              )
+            )
+            (intermediate): Intermediate(
+              (dense_1): Linear(in_features=768, out_features=3072, bias=True)
+              (dense_2): Linear(in_features=3072, out_features=768, bias=True)
+              (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+              (dropout): Dropout(p=0.0, inplace=False)
+            )
+          )
+        )
+      )
+      (freq_conv_encoder): Sequential(
+        (0): Conv1d(768, 768, kernel_size=(19,), stride=(1,), padding=(9,), padding_mode=reflect)
+        (1): BatchNorm1d(768, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+      (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+      (dropout): Dropout(p=0.0, inplace=False)
+    )
+  )
+  (image_gate_mae): Sequential(
+    (0): Linear(in_features=768, out_features=768, bias=True)
+    (1): SiLU()
+    (2): Linear(in_features=768, out_features=2, bias=True)
+  )
+  (text_gate): Sequential(
+    (0): Linear(in_features=768, out_features=768, bias=True)
+    (1): SiLU()
+    (2): Linear(in_features=768, out_features=2, bias=True)
+  )
+  (mm_gate): Sequential(
+    (0): Linear(in_features=768, out_features=768, bias=True)
+    (1): SiLU()
+    (2): Linear(in_features=768, out_features=2, bias=True)
+  )
+  (final_attention): ModuleList(
+    (0): TokenAttention(
+      (attention_layer): Sequential(
+        (0): Linear(in_features=768, out_features=768, bias=True)
+        (1): SiLU()
+        (2): Linear(in_features=768, out_features=1, bias=True)
+      )
+    )
+  )
+  (fusion_SE_network_main_task): ModuleList(
+    (0): Sequential(
+      (0): Linear(in_features=768, out_features=768, bias=True)
+      (1): SiLU()
+      (2): Linear(in_features=768, out_features=2, bias=True)
+    )
+  )
+  (mix_classifier): Sequential(
+    (0): Linear(in_features=64, out_features=1, bias=True)
+  )
+  (mix_trim): Sequential(
+    (0): Linear(in_features=768, out_features=64, bias=True)
+    (1): SiLU()
+  )
+  (text_trim): Sequential(
+    (0): Linear(in_features=768, out_features=64, bias=True)
+    (1): SiLU()
+  )
+  (text_alone_classifier): Sequential(
+    (0): Linear(in_features=64, out_features=1, bias=True)
+  )
+  (image_trim): Sequential(
+    (0): Linear(in_features=768, out_features=64, bias=True)
+    (1): SiLU()
+  )
+  (image_alone_classifier): Sequential(
+    (0): Linear(in_features=64, out_features=1, bias=True)
+  )
+  (mapping_IS_MLP_mu): Sequential(
+    (0): Linear(in_features=1, out_features=768, bias=True)
+    (1): SiLU()
+    (2): Linear(in_features=768, out_features=1, bias=True)
+  )
+  (mapping_IS_MLP_sigma): Sequential(
+    (0): Linear(in_features=1, out_features=768, bias=True)
+    (1): SiLU()
+    (2): Linear(in_features=768, out_features=1, bias=True)
+  )
+  (mapping_T_MLP_mu): Sequential(
+    (0): Linear(in_features=1, out_features=768, bias=True)
+    (1): SiLU()
+    (2): Linear(in_features=768, out_features=1, bias=True)
+  )
+  (mapping_T_MLP_sigma): Sequential(
+    (0): Linear(in_features=1, out_features=768, bias=True)
+    (1): SiLU()
+    (2): Linear(in_features=768, out_features=1, bias=True)
+  )
+  (adaIN): AdaIN()
+  (final_fusing_experts): ModuleList(
+    (0): ModuleList(
+      (0-1): 2 x ModuleList(
+        (0): Block(
+          (norm1): LayerNorm((768,), eps=1e-06, elementwise_affine=True)
+          (attn): Attention(
+            (qkv): Linear(in_features=768, out_features=2304, bias=False)
+            (q_norm): Identity()
+            (k_norm): Identity()
+            (attn_drop): Dropout(p=0.0, inplace=False)
+            (norm): Identity()
+            (proj): Linear(in_features=768, out_features=768, bias=True)
+            (proj_drop): Dropout(p=0.0, inplace=False)
+          )
+          (ls1): Identity()
+          (drop_path1): Identity()
+          (norm2): LayerNorm((768,), eps=1e-06, elementwise_affine=True)
+          (mlp): Mlp(
+            (fc1): Linear(in_features=768, out_features=3072, bias=True)
+            (act): GELU(approximate='none')
+            (drop1): Dropout(p=0.0, inplace=False)
+            (norm): Identity()
+            (fc2): Linear(in_features=3072, out_features=768, bias=True)
+            (drop2): Dropout(p=0.0, inplace=False)
+          )
+          (ls2): Identity()
+          (drop_path2): Identity()
+        )
+      )
+    )
+  )
+  (criterion): BCEWithLogitsLoss()
+  (specialization_loss): TripletMarginLoss()
+  (alignment_loss): InfoNCELoss(
+    (criterion): CrossEntropyLoss()
+  )
+  (img_align_lin1): Identity()
+  (img_align_lin2): Identity()
+  (text_align_lin1): Identity()
+  (text_align_lin2): Identity()
+  (mm_align_lin1): Identity()
+  (mm_align_lin2): Identity()
+)
+2026-04-08 18:05:04 INFO     Start training...
+2026-04-08 18:07:34 INFO     ----------------------------------------------------Epoch 1----------------------------------------------------
+2026-04-08 18:07:34 INFO     Memory Usage: Total: 95.59 GB	Used: 17.76 GB	Free: 77.84 GB
+2026-04-08 18:07:34 INFO     Training Time :[150.1 s]	Training Loss = 1.0955
+2026-04-08 18:08:12 INFO     Best threshold: 0.4
+2026-04-08 18:08:12 INFO                   precision    recall  f1-score   support
+
+           0     0.8113    0.8661    0.8378       799
+           1     0.8607    0.8041    0.8314       822
+
+    accuracy                         0.8347      1621
+   macro avg     0.8360    0.8351    0.8346      1621
+weighted avg     0.8363    0.8347    0.8346      1621
+
+2026-04-08 18:08:12 INFO     Evaluation Time:[38.2 s]	  Eval Loss   = 0.9831
+2026-04-08 18:08:12 INFO     acc:0.8347	precision:0.8360	recall:0.8351	f1:0.8346	
+2026-04-08 18:10:38 INFO     ----------------------------------------------------Epoch 2----------------------------------------------------
+2026-04-08 18:10:38 INFO     Memory Usage: Total: 95.59 GB	Used: 29.71 GB	Free: 65.89 GB
+2026-04-08 18:10:38 INFO     Training Time :[143.7 s]	Training Loss = 0.7227
+2026-04-08 18:11:14 INFO     Best threshold: 0.41000000000000003
+2026-04-08 18:11:14 INFO                   precision    recall  f1-score   support
+
+           0     0.8780    0.8373    0.8571       799
+           1     0.8487    0.8869    0.8673       822
+
+    accuracy                         0.8624      1621
+   macro avg     0.8633    0.8621    0.8622      1621
+weighted avg     0.8631    0.8624    0.8623      1621
+
+2026-04-08 18:11:14 INFO     Evaluation Time:[36.2 s]	  Eval Loss   = 0.8804
+2026-04-08 18:11:14 INFO     acc:0.8624	precision:0.8633	recall:0.8621	f1:0.8622	
+2026-04-08 18:13:52 INFO     ----------------------------------------------------Epoch 3----------------------------------------------------
+2026-04-08 18:13:52 INFO     Memory Usage: Total: 95.59 GB	Used: 29.71 GB	Free: 65.89 GB
+2026-04-08 18:13:52 INFO     Training Time :[143.5 s]	Training Loss = 0.6088
+2026-04-08 18:14:28 INFO     Best threshold: 0.26
+2026-04-08 18:14:28 INFO                   precision    recall  f1-score   support
+
+           0     0.8580    0.8773    0.8676       799
+           1     0.8781    0.8589    0.8684       822
+
+    accuracy                         0.8680      1621
+   macro avg     0.8681    0.8681    0.8680      1621
+weighted avg     0.8682    0.8680    0.8680      1621
+
+2026-04-08 18:14:28 INFO     Evaluation Time:[35.8 s]	  Eval Loss   = 0.9822
+2026-04-08 18:14:28 INFO     acc:0.8680	precision:0.8681	recall:0.8681	f1:0.8680	
+2026-04-08 18:17:06 INFO     ----------------------------------------------------Epoch 4----------------------------------------------------
+2026-04-08 18:17:06 INFO     Memory Usage: Total: 95.59 GB	Used: 29.71 GB	Free: 65.89 GB
+2026-04-08 18:17:06 INFO     Training Time :[143.3 s]	Training Loss = 0.5757
+2026-04-08 18:17:43 INFO     Best threshold: 0.54
+2026-04-08 18:17:43 INFO                   precision    recall  f1-score   support
+
+           0     0.8590    0.8999    0.8790       799
+           1     0.8980    0.8564    0.8767       822
+
+    accuracy                         0.8779      1621
+   macro avg     0.8785    0.8782    0.8778      1621
+weighted avg     0.8788    0.8779    0.8778      1621
+
+2026-04-08 18:17:43 INFO     Evaluation Time:[36.8 s]	  Eval Loss   = 0.8784
+2026-04-08 18:17:43 INFO     acc:0.8779	precision:0.8785	recall:0.8782	f1:0.8778	
+2026-04-08 18:20:22 INFO     ----------------------------------------------------Epoch 5----------------------------------------------------
+2026-04-08 18:20:22 INFO     Memory Usage: Total: 95.59 GB	Used: 29.71 GB	Free: 65.89 GB
+2026-04-08 18:20:22 INFO     Training Time :[144.1 s]	Training Loss = 0.5590
+2026-04-08 18:20:58 INFO     Best threshold: 0.1
+2026-04-08 18:20:58 INFO                   precision    recall  f1-score   support
+
+           0     0.8438    0.8786    0.8608       799
+           1     0.8771    0.8418    0.8591       822
+
+    accuracy                         0.8600      1621
+   macro avg     0.8604    0.8602    0.8600      1621
+weighted avg     0.8606    0.8600    0.8599      1621
+
+2026-04-08 18:20:58 INFO     Evaluation Time:[36.1 s]	  Eval Loss   = 1.1898
+2026-04-08 18:20:58 INFO     acc:0.8600	precision:0.8604	recall:0.8602	f1:0.8600	
+2026-04-08 18:20:58 INFO     EarlyStopping Counter: 1 out of 50. Best at epoch 4. Best acc: 0.8779
+2026-04-08 18:23:22 INFO     ----------------------------------------------------Epoch 6----------------------------------------------------
+2026-04-08 18:23:22 INFO     Memory Usage: Total: 95.59 GB	Used: 29.71 GB	Free: 65.89 GB
+2026-04-08 18:23:22 INFO     Training Time :[144.5 s]	Training Loss = 0.5271
+2026-04-08 18:23:58 INFO     Best threshold: 0.08
+2026-04-08 18:23:58 INFO                   precision    recall  f1-score   support
+
+           0     0.8913    0.8623    0.8766       799
+           1     0.8703    0.8978    0.8838       822
+
+    accuracy                         0.8803      1621
+   macro avg     0.8808    0.8801    0.8802      1621
+weighted avg     0.8807    0.8803    0.8803      1621
+
+2026-04-08 18:23:58 INFO     Evaluation Time:[35.8 s]	  Eval Loss   = 1.0677
+2026-04-08 18:23:58 INFO     acc:0.8803	precision:0.8808	recall:0.8801	f1:0.8802	
+2026-04-08 18:26:37 INFO     ----------------------------------------------------Epoch 7----------------------------------------------------
+2026-04-08 18:26:37 INFO     Memory Usage: Total: 95.59 GB	Used: 29.71 GB	Free: 65.89 GB
+2026-04-08 18:26:37 INFO     Training Time :[144.0 s]	Training Loss = 0.5147
+2026-04-08 18:27:13 INFO     Best threshold: 0.45
+2026-04-08 18:27:13 INFO                   precision    recall  f1-score   support
+
+           0     0.8828    0.8673    0.8750       799
+           1     0.8732    0.8881    0.8806       822
+
+    accuracy                         0.8779      1621
+   macro avg     0.8780    0.8777    0.8778      1621
+weighted avg     0.8779    0.8779    0.8778      1621
+
+2026-04-08 18:27:13 INFO     Evaluation Time:[36.4 s]	  Eval Loss   = 0.9587
+2026-04-08 18:27:13 INFO     acc:0.8779	precision:0.8780	recall:0.8777	f1:0.8778	
+2026-04-08 18:27:13 INFO     EarlyStopping Counter: 1 out of 50. Best at epoch 6. Best acc: 0.8803
+2026-04-08 18:29:38 INFO     ----------------------------------------------------Epoch 8----------------------------------------------------
+2026-04-08 18:29:38 INFO     Memory Usage: Total: 95.59 GB	Used: 29.71 GB	Free: 65.89 GB
+2026-04-08 18:29:38 INFO     Training Time :[144.8 s]	Training Loss = 0.6743
+2026-04-08 18:30:14 INFO     Best threshold: 0.16
+2026-04-08 18:30:14 INFO                   precision    recall  f1-score   support
+
+           0     0.8762    0.8773    0.8768       799
+           1     0.8806    0.8796    0.8801       822
+
+    accuracy                         0.8785      1621
+   macro avg     0.8784    0.8785    0.8784      1621
+weighted avg     0.8785    0.8785    0.8785      1621
+
+2026-04-08 18:30:14 INFO     Evaluation Time:[36.6 s]	  Eval Loss   = 1.0321
+2026-04-08 18:30:14 INFO     acc:0.8785	precision:0.8784	recall:0.8785	f1:0.8784	
+2026-04-08 18:30:14 INFO     EarlyStopping Counter: 2 out of 50. Best at epoch 6. Best acc: 0.8803
+2026-04-08 18:32:39 INFO     ----------------------------------------------------Epoch 9----------------------------------------------------
+2026-04-08 18:32:39 INFO     Memory Usage: Total: 95.59 GB	Used: 29.71 GB	Free: 65.89 GB
+2026-04-08 18:32:39 INFO     Training Time :[145.1 s]	Training Loss = 0.5334
+2026-04-08 18:33:16 INFO     Best threshold: 0.01
+2026-04-08 18:33:16 INFO                   precision    recall  f1-score   support
+
+           0     0.8483    0.9099    0.8780       799
+           1     0.9058    0.8418    0.8726       822
+
+    accuracy                         0.8754      1621
+   macro avg     0.8770    0.8759    0.8753      1621
+weighted avg     0.8774    0.8754    0.8753      1621
+
+2026-04-08 18:33:16 INFO     Evaluation Time:[36.3 s]	  Eval Loss   = 1.6516
+2026-04-08 18:33:16 INFO     acc:0.8754	precision:0.8770	recall:0.8759	f1:0.8753	
+2026-04-08 18:33:16 INFO     EarlyStopping Counter: 3 out of 50. Best at epoch 6. Best acc: 0.8803
+2026-04-08 18:35:39 INFO     ----------------------------------------------------Epoch 10----------------------------------------------------
+2026-04-08 18:35:39 INFO     Memory Usage: Total: 95.59 GB	Used: 29.71 GB	Free: 65.89 GB
+2026-04-08 18:35:39 INFO     Training Time :[143.3 s]	Training Loss = 0.4190
+2026-04-08 18:36:15 INFO     Best threshold: 0.26
+2026-04-08 18:36:15 INFO                   precision    recall  f1-score   support
+
+           0     0.8948    0.8623    0.8783       799
+           1     0.8707    0.9015    0.8858       822
+
+    accuracy                         0.8822      1621
+   macro avg     0.8828    0.8819    0.8821      1621
+weighted avg     0.8826    0.8822    0.8821      1621
+
+2026-04-08 18:36:15 INFO     Evaluation Time:[36.5 s]	  Eval Loss   = 1.1041
+2026-04-08 18:36:15 INFO     acc:0.8822	precision:0.8828	recall:0.8819	f1:0.8821	
+2026-04-08 18:38:56 INFO     ----------------------------------------------------Epoch 11----------------------------------------------------
+2026-04-08 18:38:56 INFO     Memory Usage: Total: 95.59 GB	Used: 31.14 GB	Free: 64.45 GB
+2026-04-08 18:38:56 INFO     Training Time :[145.4 s]	Training Loss = 0.5599
+2026-04-08 18:39:31 INFO     Best threshold: 0.56
+2026-04-08 18:39:31 INFO                   precision    recall  f1-score   support
+
+           0     0.9101    0.8611    0.8849       799
+           1     0.8717    0.9173    0.8939       822
+
+    accuracy                         0.8896      1621
+   macro avg     0.8909    0.8892    0.8894      1621
+weighted avg     0.8906    0.8896    0.8895      1621
+
+2026-04-08 18:39:31 INFO     Evaluation Time:[36.0 s]	  Eval Loss   = 0.9339
+2026-04-08 18:39:31 INFO     acc:0.8896	precision:0.8909	recall:0.8892	f1:0.8894	
+2026-04-08 18:42:00 INFO     ----------------------------------------------------Epoch 12----------------------------------------------------
+2026-04-08 18:42:00 INFO     Memory Usage: Total: 95.59 GB	Used: 28.17 GB	Free: 67.42 GB
+2026-04-08 18:42:00 INFO     Training Time :[134.2 s]	Training Loss = 0.4257
+2026-04-08 18:42:33 INFO     Best threshold: 0.42
+2026-04-08 18:42:33 INFO                   precision    recall  f1-score   support
+
+           0     0.9042    0.8861    0.8951       799
+           1     0.8914    0.9088    0.9000       822
+
+    accuracy                         0.8976      1621
+   macro avg     0.8978    0.8974    0.8975      1621
+weighted avg     0.8977    0.8976    0.8976      1621
+
+2026-04-08 18:42:33 INFO     Evaluation Time:[32.1 s]	  Eval Loss   = 0.8006
+2026-04-08 18:42:33 INFO     acc:0.8976	precision:0.8978	recall:0.8974	f1:0.8975	
+2026-04-08 18:44:58 INFO     ----------------------------------------------------Epoch 13----------------------------------------------------
+2026-04-08 18:44:58 INFO     Memory Usage: Total: 95.59 GB	Used: 28.17 GB	Free: 67.42 GB
+2026-04-08 18:44:58 INFO     Training Time :[130.4 s]	Training Loss = 0.2816
+2026-04-08 18:45:30 INFO     Best threshold: 0.01
+2026-04-08 18:45:30 INFO                   precision    recall  f1-score   support
+
+           0     0.7996    0.9587    0.8719       799
+           1     0.9502    0.7664    0.8485       822
+
+    accuracy                         0.8612      1621
+   macro avg     0.8749    0.8626    0.8602      1621
+weighted avg     0.8760    0.8612    0.8600      1621
+
+2026-04-08 18:45:30 INFO     Evaluation Time:[32.3 s]	  Eval Loss   = 2.865
+2026-04-08 18:45:30 INFO     acc:0.8612	precision:0.8749	recall:0.8626	f1:0.8602	
+2026-04-08 18:45:30 INFO     EarlyStopping Counter: 1 out of 50. Best at epoch 12. Best acc: 0.8976
+2026-04-08 18:47:40 INFO     ----------------------------------------------------Epoch 14----------------------------------------------------
+2026-04-08 18:47:40 INFO     Memory Usage: Total: 95.59 GB	Used: 28.17 GB	Free: 67.42 GB
+2026-04-08 18:47:40 INFO     Training Time :[129.9 s]	Training Loss = 0.1683
+2026-04-08 18:48:11 INFO     Best threshold: 0.02
+2026-04-08 18:48:11 INFO                   precision    recall  f1-score   support
+
+           0     0.8857    0.9212    0.9031       799
+           1     0.9203    0.8844    0.9020       822
+
+    accuracy                         0.9025      1621
+   macro avg     0.9030    0.9028    0.9025      1621
+weighted avg     0.9032    0.9025    0.9025      1621
+
+2026-04-08 18:48:11 INFO     Evaluation Time:[31.7 s]	  Eval Loss   = 1.4114
+2026-04-08 18:48:11 INFO     acc:0.9025	precision:0.9030	recall:0.9028	f1:0.9025	
+2026-04-08 18:50:36 INFO     ----------------------------------------------------Epoch 15----------------------------------------------------
+2026-04-08 18:50:36 INFO     Memory Usage: Total: 95.59 GB	Used: 28.17 GB	Free: 67.42 GB
+2026-04-08 18:50:36 INFO     Training Time :[129.3 s]	Training Loss = 0.1162
+2026-04-08 18:51:07 INFO     Best threshold: 0.01
+2026-04-08 18:51:07 INFO                   precision    recall  f1-score   support
+
+           0     0.8732    0.9224    0.8971       799
+           1     0.9202    0.8698    0.8943       822
+
+    accuracy                         0.8957      1621
+   macro avg     0.8967    0.8961    0.8957      1621
+weighted avg     0.8970    0.8957    0.8957      1621
+
+2026-04-08 18:51:07 INFO     Evaluation Time:[31.8 s]	  Eval Loss   = 2.125
+2026-04-08 18:51:07 INFO     acc:0.8957	precision:0.8967	recall:0.8961	f1:0.8957	
+2026-04-08 18:51:07 INFO     EarlyStopping Counter: 1 out of 50. Best at epoch 14. Best acc: 0.9025
+2026-04-08 18:53:17 INFO     ----------------------------------------------------Epoch 16----------------------------------------------------
+2026-04-08 18:53:17 INFO     Memory Usage: Total: 95.59 GB	Used: 28.17 GB	Free: 67.42 GB
+2026-04-08 18:53:17 INFO     Training Time :[129.6 s]	Training Loss = 0.0795
+2026-04-08 18:53:49 INFO     Best threshold: 0.01
+2026-04-08 18:53:49 INFO                   precision    recall  f1-score   support
+
+           0     0.8964    0.8986    0.8975       799
+           1     0.9012    0.8990    0.9001       822
+
+    accuracy                         0.8988      1621
+   macro avg     0.8988    0.8988    0.8988      1621
+weighted avg     0.8988    0.8988    0.8988      1621
+
+2026-04-08 18:53:49 INFO     Evaluation Time:[31.9 s]	  Eval Loss   = 2.3947
+2026-04-08 18:53:49 INFO     acc:0.8988	precision:0.8988	recall:0.8988	f1:0.8988	
+2026-04-08 18:53:49 INFO     EarlyStopping Counter: 2 out of 50. Best at epoch 14. Best acc: 0.9025
+2026-04-08 18:55:59 INFO     ----------------------------------------------------Epoch 17----------------------------------------------------
+2026-04-08 18:55:59 INFO     Memory Usage: Total: 95.59 GB	Used: 28.17 GB	Free: 67.42 GB
+2026-04-08 18:55:59 INFO     Training Time :[130.1 s]	Training Loss = 0.0507
+2026-04-08 18:56:31 INFO     Best threshold: 0.02
+2026-04-08 18:56:31 INFO                   precision    recall  f1-score   support
+
+           0     0.8308    0.9462    0.8847       799
+           1     0.9395    0.8127    0.8715       822
+
+    accuracy                         0.8785      1621
+   macro avg     0.8851    0.8794    0.8781      1621
+weighted avg     0.8859    0.8785    0.8780      1621
+
+2026-04-08 18:56:31 INFO     Evaluation Time:[32.2 s]	  Eval Loss   = 3.4732
+2026-04-08 18:56:31 INFO     acc:0.8785	precision:0.8851	recall:0.8794	f1:0.8781	
+2026-04-08 18:56:31 INFO     EarlyStopping Counter: 3 out of 50. Best at epoch 14. Best acc: 0.9025
+2026-04-08 18:58:41 INFO     ----------------------------------------------------Epoch 18----------------------------------------------------
+2026-04-08 18:58:41 INFO     Memory Usage: Total: 95.59 GB	Used: 28.17 GB	Free: 67.42 GB
+2026-04-08 18:58:41 INFO     Training Time :[129.4 s]	Training Loss = 0.0505
+2026-04-08 18:59:12 INFO     Best threshold: 0.01
+2026-04-08 18:59:12 INFO                   precision    recall  f1-score   support
+
+           0     0.8769    0.9362    0.9056       799
+           1     0.9336    0.8723    0.9019       822
+
+    accuracy                         0.9038      1621
+   macro avg     0.9052    0.9042    0.9037      1621
+weighted avg     0.9057    0.9038    0.9037      1621
+
+2026-04-08 18:59:13 INFO     Evaluation Time:[31.9 s]	  Eval Loss   = 2.6604
+2026-04-08 18:59:13 INFO     acc:0.9038	precision:0.9052	recall:0.9042	f1:0.9037	
+2026-04-08 19:01:37 INFO     ----------------------------------------------------Epoch 19----------------------------------------------------
+2026-04-08 19:01:37 INFO     Memory Usage: Total: 95.59 GB	Used: 28.17 GB	Free: 67.42 GB
+2026-04-08 19:01:37 INFO     Training Time :[130.2 s]	Training Loss = 0.0372
+2026-04-08 19:02:09 INFO     Best threshold: 0.97
+2026-04-08 19:02:09 INFO                   precision    recall  f1-score   support
+
+           0     0.9317    0.8874    0.9090       799
+           1     0.8953    0.9367    0.9156       822
+
+    accuracy                         0.9124      1621
+   macro avg     0.9135    0.9120    0.9123      1621
+weighted avg     0.9133    0.9124    0.9123      1621
+
+2026-04-08 19:02:09 INFO     Evaluation Time:[32.0 s]	  Eval Loss   = 2.3654
+2026-04-08 19:02:09 INFO     acc:0.9124	precision:0.9135	recall:0.9120	f1:0.9123	
+2026-04-08 19:04:34 INFO     ----------------------------------------------------Epoch 20----------------------------------------------------
+2026-04-08 19:04:34 INFO     Memory Usage: Total: 95.59 GB	Used: 28.17 GB	Free: 67.42 GB
+2026-04-08 19:04:34 INFO     Training Time :[129.7 s]	Training Loss = 0.0294
+2026-04-08 19:05:06 INFO     Best threshold: 0.02
+2026-04-08 19:05:06 INFO                   precision    recall  f1-score   support
+
+           0     0.8875    0.9086    0.8980       799
+           1     0.9091    0.8881    0.8985       822
+
+    accuracy                         0.8982      1621
+   macro avg     0.8983    0.8984    0.8982      1621
+weighted avg     0.8985    0.8982    0.8982      1621
+
+2026-04-08 19:05:06 INFO     Evaluation Time:[31.8 s]	  Eval Loss   = 2.8642
+2026-04-08 19:05:06 INFO     acc:0.8982	precision:0.8983	recall:0.8984	f1:0.8982	
+2026-04-08 19:05:06 INFO     EarlyStopping Counter: 1 out of 50. Best at epoch 19. Best acc: 0.9124
+2026-04-08 19:07:16 INFO     ----------------------------------------------------Epoch 21----------------------------------------------------
+2026-04-08 19:07:16 INFO     Memory Usage: Total: 95.59 GB	Used: 28.17 GB	Free: 67.42 GB
+2026-04-08 19:07:16 INFO     Training Time :[130.0 s]	Training Loss = 0.0340
+2026-04-08 19:07:47 INFO     Best threshold: 0.01
+2026-04-08 19:07:47 INFO                   precision    recall  f1-score   support
+
+           0     0.9134    0.9111    0.9123       799
+           1     0.9138    0.9161    0.9149       822
+
+    accuracy                         0.9136      1621
+   macro avg     0.9136    0.9136    0.9136      1621
+weighted avg     0.9136    0.9136    0.9136      1621
+
+2026-04-08 19:07:47 INFO     Evaluation Time:[31.9 s]	  Eval Loss   = 2.4355
+2026-04-08 19:07:47 INFO     acc:0.9136	precision:0.9136	recall:0.9136	f1:0.9136	
+2026-04-08 19:10:12 INFO     ----------------------------------------------------Epoch 22----------------------------------------------------
+2026-04-08 19:10:12 INFO     Memory Usage: Total: 95.59 GB	Used: 28.17 GB	Free: 67.42 GB
+2026-04-08 19:10:12 INFO     Training Time :[130.2 s]	Training Loss = 0.0164
+2026-04-08 19:10:44 INFO     Best threshold: 0.6
+2026-04-08 19:10:44 INFO                   precision    recall  f1-score   support
+
+           0     0.9034    0.9362    0.9195       799
+           1     0.9357    0.9027    0.9189       822
+
+    accuracy                         0.9192      1621
+   macro avg     0.9195    0.9194    0.9192      1621
+weighted avg     0.9198    0.9192    0.9192      1621
+
+2026-04-08 19:10:44 INFO     Evaluation Time:[31.9 s]	  Eval Loss   = 2.5731
+2026-04-08 19:10:44 INFO     acc:0.9192	precision:0.9195	recall:0.9194	f1:0.9192	
+2026-04-08 19:13:09 INFO     ----------------------------------------------------Epoch 23----------------------------------------------------
+2026-04-08 19:13:09 INFO     Memory Usage: Total: 95.59 GB	Used: 28.17 GB	Free: 67.42 GB
+2026-04-08 19:13:09 INFO     Training Time :[130.3 s]	Training Loss = 0.0174
+2026-04-08 19:13:41 INFO     Best threshold: 0.19
+2026-04-08 19:13:41 INFO                   precision    recall  f1-score   support
+
+           0     0.8722    0.9399    0.9048       799
+           1     0.9368    0.8662    0.9001       822
+
+    accuracy                         0.9025      1621
+   macro avg     0.9045    0.9031    0.9025      1621
+weighted avg     0.9050    0.9025    0.9024      1621
+
+2026-04-08 19:13:41 INFO     Evaluation Time:[31.8 s]	  Eval Loss   = 2.8058
+2026-04-08 19:13:41 INFO     acc:0.9025	precision:0.9045	recall:0.9031	f1:0.9025	
+2026-04-08 19:13:41 INFO     EarlyStopping Counter: 1 out of 50. Best at epoch 22. Best acc: 0.9192
+2026-04-08 19:15:50 INFO     ----------------------------------------------------Epoch 24----------------------------------------------------
+2026-04-08 19:15:50 INFO     Memory Usage: Total: 95.59 GB	Used: 28.17 GB	Free: 67.42 GB
+2026-04-08 19:15:50 INFO     Training Time :[129.8 s]	Training Loss = 0.0120
+2026-04-08 19:16:22 INFO     Best threshold: 0.91
+2026-04-08 19:16:22 INFO                   precision    recall  f1-score   support
+
+           0     0.9012    0.9249    0.9129       799
+           1     0.9251    0.9015    0.9131       822
+
+    accuracy                         0.9130      1621
+   macro avg     0.9132    0.9132    0.9130      1621
+weighted avg     0.9133    0.9130    0.9130      1621
+
+2026-04-08 19:16:22 INFO     Evaluation Time:[32.0 s]	  Eval Loss   = 3.3097
+2026-04-08 19:16:22 INFO     acc:0.9130	precision:0.9132	recall:0.9132	f1:0.9130	
+2026-04-08 19:16:22 INFO     EarlyStopping Counter: 2 out of 50. Best at epoch 22. Best acc: 0.9192
+2026-04-08 19:18:32 INFO     ----------------------------------------------------Epoch 25----------------------------------------------------
+2026-04-08 19:18:32 INFO     Memory Usage: Total: 95.59 GB	Used: 28.17 GB	Free: 67.42 GB
+2026-04-08 19:18:32 INFO     Training Time :[129.5 s]	Training Loss = 0.0185
+2026-04-08 19:19:04 INFO     Best threshold: 0.01
+2026-04-08 19:19:04 INFO                   precision    recall  f1-score   support
+
+           0     0.8693    0.9237    0.8956       799
+           1     0.9210    0.8650    0.8921       822
+
+    accuracy                         0.8939      1621
+   macro avg     0.8951    0.8943    0.8939      1621
+weighted avg     0.8955    0.8939    0.8938      1621
+
+2026-04-08 19:19:04 INFO     Evaluation Time:[31.9 s]	  Eval Loss   = 3.7098
+2026-04-08 19:19:04 INFO     acc:0.8939	precision:0.8951	recall:0.8943	f1:0.8939	
+2026-04-08 19:19:04 INFO     EarlyStopping Counter: 3 out of 50. Best at epoch 22. Best acc: 0.9192
+2026-04-08 19:21:14 INFO     ----------------------------------------------------Epoch 26----------------------------------------------------
+2026-04-08 19:21:14 INFO     Memory Usage: Total: 95.59 GB	Used: 28.17 GB	Free: 67.42 GB
+2026-04-08 19:21:14 INFO     Training Time :[130.0 s]	Training Loss = 0.0125
+2026-04-08 19:21:46 INFO     Best threshold: 0.02
+2026-04-08 19:21:46 INFO                   precision    recall  f1-score   support
+
+           0     0.9547    0.8698    0.9103       799
+           1     0.8835    0.9599    0.9201       822
+
+    accuracy                         0.9155      1621
+   macro avg     0.9191    0.9148    0.9152      1621
+weighted avg     0.9186    0.9155    0.9153      1621
+
+2026-04-08 19:21:46 INFO     Evaluation Time:[31.9 s]	  Eval Loss   = 3.4077
+2026-04-08 19:21:46 INFO     acc:0.9155	precision:0.9191	recall:0.9148	f1:0.9152	
+2026-04-08 19:21:46 INFO     EarlyStopping Counter: 4 out of 50. Best at epoch 22. Best acc: 0.9192
+2026-04-08 19:23:57 INFO     ----------------------------------------------------Epoch 27----------------------------------------------------
+2026-04-08 19:23:57 INFO     Memory Usage: Total: 95.59 GB	Used: 28.17 GB	Free: 67.42 GB
+2026-04-08 19:23:57 INFO     Training Time :[131.7 s]	Training Loss = 0.0185
+2026-04-08 19:24:30 INFO     Best threshold: 0.01
+2026-04-08 19:24:30 INFO                   precision    recall  f1-score   support
+
+           0     0.9192    0.9249    0.9220       799
+           1     0.9266    0.9209    0.9237       822
+
+    accuracy                         0.9229      1621
+   macro avg     0.9229    0.9229    0.9229      1621
+weighted avg     0.9229    0.9229    0.9229      1621
+
+2026-04-08 19:24:30 INFO     Evaluation Time:[32.6 s]	  Eval Loss   = 3.0726
+2026-04-08 19:24:30 INFO     acc:0.9229	precision:0.9229	recall:0.9229	f1:0.9229	
+2026-04-08 19:26:54 INFO     ----------------------------------------------------Epoch 28----------------------------------------------------
+2026-04-08 19:26:54 INFO     Memory Usage: Total: 95.59 GB	Used: 28.17 GB	Free: 67.42 GB
+2026-04-08 19:26:54 INFO     Training Time :[129.2 s]	Training Loss = 0.0089
+2026-04-08 19:27:26 INFO     Best threshold: 0.3
+2026-04-08 19:27:26 INFO                   precision    recall  f1-score   support
+
+           0     0.9131    0.9337    0.9233       799
+           1     0.9341    0.9136    0.9237       822
+
+    accuracy                         0.9235      1621
+   macro avg     0.9236    0.9236    0.9235      1621
+weighted avg     0.9237    0.9235    0.9235      1621
+
+2026-04-08 19:27:26 INFO     Evaluation Time:[31.8 s]	  Eval Loss   = 2.9713
+2026-04-08 19:27:26 INFO     acc:0.9235	precision:0.9236	recall:0.9236	f1:0.9235	
+2026-04-08 19:29:51 INFO     ----------------------------------------------------Epoch 29----------------------------------------------------
+2026-04-08 19:29:51 INFO     Memory Usage: Total: 95.59 GB	Used: 28.17 GB	Free: 67.42 GB
+2026-04-08 19:29:51 INFO     Training Time :[129.6 s]	Training Loss = 0.0089
+2026-04-08 19:30:23 INFO     Best threshold: 0.02
+2026-04-08 19:30:23 INFO                   precision    recall  f1-score   support
+
+           0     0.9258    0.9212    0.9235       799
+           1     0.9237    0.9282    0.9260       822
+
+    accuracy                         0.9247      1621
+   macro avg     0.9248    0.9247    0.9247      1621
+weighted avg     0.9247    0.9247    0.9247      1621
+
+2026-04-08 19:30:23 INFO     Evaluation Time:[31.7 s]	  Eval Loss   = 2.845
+2026-04-08 19:30:23 INFO     acc:0.9247	precision:0.9248	recall:0.9247	f1:0.9247	
+2026-04-08 19:32:47 INFO     ----------------------------------------------------Epoch 30----------------------------------------------------
+2026-04-08 19:32:47 INFO     Memory Usage: Total: 95.59 GB	Used: 28.17 GB	Free: 67.42 GB
+2026-04-08 19:32:47 INFO     Training Time :[130.0 s]	Training Loss = 0.0051
+2026-04-08 19:33:19 INFO     Best threshold: 0.07
+2026-04-08 19:33:19 INFO                   precision    recall  f1-score   support
+
+           0     0.9128    0.9299    0.9213       799
+           1     0.9306    0.9136    0.9220       822
+
+    accuracy                         0.9217      1621
+   macro avg     0.9217    0.9218    0.9217      1621
+weighted avg     0.9218    0.9217    0.9217      1621
+
+2026-04-08 19:33:19 INFO     Evaluation Time:[32.0 s]	  Eval Loss   = 2.6138
+2026-04-08 19:33:19 INFO     acc:0.9217	precision:0.9217	recall:0.9218	f1:0.9217	
+2026-04-08 19:33:19 INFO     EarlyStopping Counter: 1 out of 50. Best at epoch 29. Best acc: 0.9247
+2026-04-08 19:35:29 INFO     ----------------------------------------------------Epoch 31----------------------------------------------------
+2026-04-08 19:35:29 INFO     Memory Usage: Total: 95.59 GB	Used: 28.17 GB	Free: 67.42 GB
+2026-04-08 19:35:29 INFO     Training Time :[129.3 s]	Training Loss = 0.0075
+2026-04-08 19:36:01 INFO     Best threshold: 0.01
+2026-04-08 19:36:01 INFO                   precision    recall  f1-score   support
+
+           0     0.9224    0.9224    0.9224       799
+           1     0.9246    0.9246    0.9246       822
+
+    accuracy                         0.9235      1621
+   macro avg     0.9235    0.9235    0.9235      1621
+weighted avg     0.9235    0.9235    0.9235      1621
+
+2026-04-08 19:36:01 INFO     Evaluation Time:[32.4 s]	  Eval Loss   = 2.8814
+2026-04-08 19:36:01 INFO     acc:0.9235	precision:0.9235	recall:0.9235	f1:0.9235	
+2026-04-08 19:36:01 INFO     EarlyStopping Counter: 2 out of 50. Best at epoch 29. Best acc: 0.9247
+2026-04-08 19:38:14 INFO     ----------------------------------------------------Epoch 32----------------------------------------------------
+2026-04-08 19:38:14 INFO     Memory Usage: Total: 95.59 GB	Used: 28.17 GB	Free: 67.42 GB
+2026-04-08 19:38:14 INFO     Training Time :[133.3 s]	Training Loss = 0.0039
+2026-04-08 19:38:47 INFO     Best threshold: 0.01
+2026-04-08 19:38:47 INFO                   precision    recall  f1-score   support
+
+           0     0.9166    0.9212    0.9189       799
+           1     0.9230    0.9185    0.9207       822
+
+    accuracy                         0.9198      1621
+   macro avg     0.9198    0.9198    0.9198      1621
+weighted avg     0.9198    0.9198    0.9198      1621
+
+2026-04-08 19:38:47 INFO     Evaluation Time:[32.6 s]	  Eval Loss   = 3.1247
+2026-04-08 19:38:47 INFO     acc:0.9198	precision:0.9198	recall:0.9198	f1:0.9198	
+2026-04-08 19:38:47 INFO     EarlyStopping Counter: 3 out of 50. Best at epoch 29. Best acc: 0.9247
+2026-04-08 19:40:58 INFO     ----------------------------------------------------Epoch 33----------------------------------------------------
+2026-04-08 19:40:58 INFO     Memory Usage: Total: 95.59 GB	Used: 28.17 GB	Free: 67.42 GB
+2026-04-08 19:40:58 INFO     Training Time :[130.7 s]	Training Loss = 0.0035
+2026-04-08 19:41:30 INFO     Best threshold: 0.01
+2026-04-08 19:41:30 INFO                   precision    recall  f1-score   support
+
+           0     0.9028    0.9299    0.9162       799
+           1     0.9298    0.9027    0.9160       822
+
+    accuracy                         0.9161      1621
+   macro avg     0.9163    0.9163    0.9161      1621
+weighted avg     0.9165    0.9161    0.9161      1621
+
+2026-04-08 19:41:30 INFO     Evaluation Time:[32.2 s]	  Eval Loss   = 3.6365
+2026-04-08 19:41:30 INFO     acc:0.9161	precision:0.9163	recall:0.9163	f1:0.9161	
+2026-04-08 19:41:30 INFO     EarlyStopping Counter: 4 out of 50. Best at epoch 29. Best acc: 0.9247
+2026-04-08 19:43:42 INFO     ----------------------------------------------------Epoch 34----------------------------------------------------
+2026-04-08 19:43:42 INFO     Memory Usage: Total: 95.59 GB	Used: 28.17 GB	Free: 67.42 GB
+2026-04-08 19:43:42 INFO     Training Time :[132.5 s]	Training Loss = 0.0025
+2026-04-08 19:44:15 INFO     Best threshold: 0.09
+2026-04-08 19:44:15 INFO                   precision    recall  f1-score   support
+
+           0     0.9247    0.9224    0.9236       799
+           1     0.9248    0.9270    0.9259       822
+
+    accuracy                         0.9247      1621
+   macro avg     0.9247    0.9247    0.9247      1621
+weighted avg     0.9247    0.9247    0.9247      1621
+
+2026-04-08 19:44:15 INFO     Evaluation Time:[32.3 s]	  Eval Loss   = 2.7555
+2026-04-08 19:44:15 INFO     acc:0.9247	precision:0.9247	recall:0.9247	f1:0.9247	
+2026-04-08 19:44:15 INFO     EarlyStopping Counter: 5 out of 50. Best at epoch 29. Best acc: 0.9247
+2026-04-08 19:46:25 INFO     ----------------------------------------------------Epoch 35----------------------------------------------------
+2026-04-08 19:46:25 INFO     Memory Usage: Total: 95.59 GB	Used: 28.17 GB	Free: 67.42 GB
+2026-04-08 19:46:25 INFO     Training Time :[130.7 s]	Training Loss = 0.0021
+2026-04-08 19:46:57 INFO     Best threshold: 0.01
+2026-04-08 19:46:57 INFO                   precision    recall  f1-score   support
+
+           0     0.8922    0.9324    0.9119       799
+           1     0.9313    0.8905    0.9104       822
+
+    accuracy                         0.9112      1621
+   macro avg     0.9118    0.9115    0.9112      1621
+weighted avg     0.9120    0.9112    0.9112      1621
+
+2026-04-08 19:46:57 INFO     Evaluation Time:[31.8 s]	  Eval Loss   = 4.2088
+2026-04-08 19:46:57 INFO     acc:0.9112	precision:0.9118	recall:0.9115	f1:0.9112	
+2026-04-08 19:46:57 INFO     EarlyStopping Counter: 6 out of 50. Best at epoch 29. Best acc: 0.9247
+2026-04-08 19:49:08 INFO     ----------------------------------------------------Epoch 36----------------------------------------------------
+2026-04-08 19:49:08 INFO     Memory Usage: Total: 95.59 GB	Used: 28.17 GB	Free: 67.42 GB
+2026-04-08 19:49:08 INFO     Training Time :[130.4 s]	Training Loss = 0.0037
+2026-04-08 19:49:40 INFO     Best threshold: 0.01
+2026-04-08 19:49:40 INFO                   precision    recall  f1-score   support
+
+           0     0.8831    0.9362    0.9089       799
+           1     0.9341    0.8796    0.9060       822
+
+    accuracy                         0.9075      1621
+   macro avg     0.9086    0.9079    0.9074      1621
+weighted avg     0.9090    0.9075    0.9074      1621
+
+2026-04-08 19:49:40 INFO     Evaluation Time:[32.0 s]	  Eval Loss   = 4.558
+2026-04-08 19:49:40 INFO     acc:0.9075	precision:0.9086	recall:0.9079	f1:0.9074	
+2026-04-08 19:49:40 INFO     EarlyStopping Counter: 7 out of 50. Best at epoch 29. Best acc: 0.9247
+2026-04-08 19:51:49 INFO     ----------------------------------------------------Epoch 37----------------------------------------------------
+2026-04-08 19:51:49 INFO     Memory Usage: Total: 95.59 GB	Used: 28.17 GB	Free: 67.42 GB
+2026-04-08 19:51:49 INFO     Training Time :[129.5 s]	Training Loss = 0.0028
+2026-04-08 19:52:21 INFO     Best threshold: 0.01
+2026-04-08 19:52:21 INFO                   precision    recall  f1-score   support
+
+           0     0.9013    0.9262    0.9136       799
+           1     0.9263    0.9015    0.9137       822
+
+    accuracy                         0.9136      1621
+   macro avg     0.9138    0.9138    0.9136      1621
+weighted avg     0.9140    0.9136    0.9136      1621
+
+2026-04-08 19:52:21 INFO     Evaluation Time:[32.1 s]	  Eval Loss   = 6.955
+2026-04-08 19:52:21 INFO     acc:0.9136	precision:0.9138	recall:0.9138	f1:0.9136	
+2026-04-08 19:52:21 INFO     EarlyStopping Counter: 8 out of 50. Best at epoch 29. Best acc: 0.9247
+2026-04-08 19:54:32 INFO     ----------------------------------------------------Epoch 38----------------------------------------------------
+2026-04-08 19:54:32 INFO     Memory Usage: Total: 95.59 GB	Used: 28.17 GB	Free: 67.42 GB
+2026-04-08 19:54:32 INFO     Training Time :[131.0 s]	Training Loss = 0.0031
+2026-04-08 19:55:04 INFO     Best threshold: 0.08
+2026-04-08 19:55:04 INFO                   precision    recall  f1-score   support
+
+           0     0.9040    0.9312    0.9174       799
+           1     0.9311    0.9039    0.9173       822
+
+    accuracy                         0.9173      1621
+   macro avg     0.9175    0.9175    0.9173      1621
+weighted avg     0.9177    0.9173    0.9173      1621
+
+2026-04-08 19:55:04 INFO     Evaluation Time:[32.0 s]	  Eval Loss   = 5.2553
+2026-04-08 19:55:04 INFO     acc:0.9173	precision:0.9175	recall:0.9175	f1:0.9173	
+2026-04-08 19:55:04 INFO     EarlyStopping Counter: 9 out of 50. Best at epoch 29. Best acc: 0.9247
+2026-04-08 19:57:14 INFO     ----------------------------------------------------Epoch 39----------------------------------------------------
+2026-04-08 19:57:14 INFO     Memory Usage: Total: 95.59 GB	Used: 28.17 GB	Free: 67.42 GB
+2026-04-08 19:57:14 INFO     Training Time :[129.7 s]	Training Loss = 0.0010
+2026-04-08 19:57:46 INFO     Best threshold: 0.02
+2026-04-08 19:57:46 INFO                   precision    recall  f1-score   support
+
+           0     0.8961    0.9387    0.9169       799
+           1     0.9375    0.8942    0.9153       822
+
+    accuracy                         0.9161      1621
+   macro avg     0.9168    0.9164    0.9161      1621
+weighted avg     0.9171    0.9161    0.9161      1621
+
+2026-04-08 19:57:46 INFO     Evaluation Time:[32.0 s]	  Eval Loss   = 4.1075
+2026-04-08 19:57:46 INFO     acc:0.9161	precision:0.9168	recall:0.9164	f1:0.9161	
+2026-04-08 19:57:46 INFO     EarlyStopping Counter: 10 out of 50. Best at epoch 29. Best acc: 0.9247
+2026-04-08 19:59:56 INFO     ----------------------------------------------------Epoch 40----------------------------------------------------
+2026-04-08 19:59:56 INFO     Memory Usage: Total: 95.59 GB	Used: 28.17 GB	Free: 67.42 GB
+2026-04-08 19:59:56 INFO     Training Time :[129.9 s]	Training Loss = 0.0000
+2026-04-08 20:00:28 INFO     Best threshold: 0.01
+2026-04-08 20:00:28 INFO                   precision    recall  f1-score   support
+
+           0     0.9060    0.9287    0.9172       799
+           1     0.9289    0.9063    0.9175       822
+
+    accuracy                         0.9173      1621
+   macro avg     0.9175    0.9175    0.9173      1621
+weighted avg     0.9176    0.9173    0.9173      1621
+
+2026-04-08 20:00:28 INFO     Evaluation Time:[32.0 s]	  Eval Loss   = 3.9829
+2026-04-08 20:00:28 INFO     acc:0.9173	precision:0.9175	recall:0.9175	f1:0.9173	
+2026-04-08 20:00:28 INFO     EarlyStopping Counter: 11 out of 50. Best at epoch 29. Best acc: 0.9247
+2026-04-08 20:02:38 INFO     ----------------------------------------------------Epoch 41----------------------------------------------------
+2026-04-08 20:02:38 INFO     Memory Usage: Total: 95.59 GB	Used: 28.17 GB	Free: 67.42 GB
+2026-04-08 20:02:38 INFO     Training Time :[130.2 s]	Training Loss = 0.0001
+2026-04-08 20:03:10 INFO     Best threshold: 0.01
+2026-04-08 20:03:10 INFO                   precision    recall  f1-score   support
+
+           0     0.8816    0.9412    0.9104       799
+           1     0.9388    0.8771    0.9069       822
+
+    accuracy                         0.9087      1621
+   macro avg     0.9102    0.9092    0.9087      1621
+weighted avg     0.9106    0.9087    0.9086      1621
+
+2026-04-08 20:03:10 INFO     Evaluation Time:[32.0 s]	  Eval Loss   = 5.1114
+2026-04-08 20:03:10 INFO     acc:0.9087	precision:0.9102	recall:0.9092	f1:0.9087	
+2026-04-08 20:03:10 INFO     EarlyStopping Counter: 12 out of 50. Best at epoch 29. Best acc: 0.9247
+2026-04-08 20:05:18 INFO     ----------------------------------------------------Epoch 42----------------------------------------------------
+2026-04-08 20:05:18 INFO     Memory Usage: Total: 95.59 GB	Used: 28.17 GB	Free: 67.42 GB
+2026-04-08 20:05:18 INFO     Training Time :[128.3 s]	Training Loss = 0.0009
+2026-04-08 20:05:50 INFO     Best threshold: 0.01
+2026-04-08 20:05:50 INFO                   precision    recall  f1-score   support
+
+           0     0.9031    0.9337    0.9182       799
+           1     0.9333    0.9027    0.9177       822
+
+    accuracy                         0.9180      1621
+   macro avg     0.9182    0.9182    0.9180      1621
+weighted avg     0.9185    0.9180    0.9179      1621
+
+2026-04-08 20:05:50 INFO     Evaluation Time:[31.9 s]	  Eval Loss   = 4.4343
+2026-04-08 20:05:50 INFO     acc:0.9180	precision:0.9182	recall:0.9182	f1:0.9180	
+2026-04-08 20:05:50 INFO     EarlyStopping Counter: 13 out of 50. Best at epoch 29. Best acc: 0.9247
+2026-04-08 20:08:00 INFO     ----------------------------------------------------Epoch 43----------------------------------------------------
+2026-04-08 20:08:00 INFO     Memory Usage: Total: 95.59 GB	Used: 28.17 GB	Free: 67.42 GB
+2026-04-08 20:08:00 INFO     Training Time :[130.2 s]	Training Loss = 0.0024
+2026-04-08 20:08:33 INFO     Best threshold: 0.06
+2026-04-08 20:08:33 INFO                   precision    recall  f1-score   support
+
+           0     0.8921    0.9412    0.9160       799
+           1     0.9396    0.8893    0.9137       822
+
+    accuracy                         0.9149      1621
+   macro avg     0.9158    0.9152    0.9149      1621
+weighted avg     0.9162    0.9149    0.9148      1621
+
+2026-04-08 20:08:33 INFO     Evaluation Time:[32.2 s]	  Eval Loss   = 3.99
+2026-04-08 20:08:33 INFO     acc:0.9149	precision:0.9158	recall:0.9152	f1:0.9149	
+2026-04-08 20:08:33 INFO     EarlyStopping Counter: 14 out of 50. Best at epoch 29. Best acc: 0.9247
+2026-04-08 20:10:42 INFO     ----------------------------------------------------Epoch 44----------------------------------------------------
+2026-04-08 20:10:42 INFO     Memory Usage: Total: 95.59 GB	Used: 28.17 GB	Free: 67.42 GB
+2026-04-08 20:10:42 INFO     Training Time :[129.1 s]	Training Loss = 0.0002
+2026-04-08 20:11:13 INFO     Best threshold: 0.21
+2026-04-08 20:11:13 INFO                   precision    recall  f1-score   support
+
+           0     0.9241    0.9299    0.9270       799
+           1     0.9315    0.9258    0.9286       822
+
+    accuracy                         0.9278      1621
+   macro avg     0.9278    0.9279    0.9278      1621
+weighted avg     0.9278    0.9278    0.9278      1621
+
+2026-04-08 20:11:13 INFO     Evaluation Time:[31.8 s]	  Eval Loss   = 3.4421
+2026-04-08 20:11:13 INFO     acc:0.9278	precision:0.9278	recall:0.9279	f1:0.9278	
+2026-04-08 20:13:57 INFO     ----------------------------------------------------Epoch 45----------------------------------------------------
+2026-04-08 20:13:57 INFO     Memory Usage: Total: 95.59 GB	Used: 30.97 GB	Free: 64.62 GB
+2026-04-08 20:13:57 INFO     Training Time :[148.3 s]	Training Loss = 0.0000
+2026-04-08 20:14:39 INFO     Best threshold: 0.01
+2026-04-08 20:14:39 INFO                   precision    recall  f1-score   support
+
+           0     0.8876    0.9387    0.9124       799
+           1     0.9369    0.8844    0.9099       822
+
+    accuracy                         0.9112      1621
+   macro avg     0.9122    0.9116    0.9111      1621
+weighted avg     0.9126    0.9112    0.9111      1621
+
+2026-04-08 20:14:39 INFO     Evaluation Time:[41.9 s]	  Eval Loss   = 3.8994
+2026-04-08 20:14:39 INFO     acc:0.9112	precision:0.9122	recall:0.9116	f1:0.9111	
+2026-04-08 20:14:39 INFO     EarlyStopping Counter: 1 out of 50. Best at epoch 44. Best acc: 0.9278
+2026-04-08 20:17:06 INFO     ----------------------------------------------------Epoch 46----------------------------------------------------
+2026-04-08 20:17:06 INFO     Memory Usage: Total: 95.59 GB	Used: 28.17 GB	Free: 67.42 GB
+2026-04-08 20:17:06 INFO     Training Time :[147.5 s]	Training Loss = 0.0000
+2026-04-08 20:17:43 INFO     Best threshold: 0.01
+2026-04-08 20:17:43 INFO                   precision    recall  f1-score   support
+
+           0     0.8884    0.9362    0.9116       799
+           1     0.9345    0.8856    0.9094       822
+
+    accuracy                         0.9105      1621
+   macro avg     0.9114    0.9109    0.9105      1621
+weighted avg     0.9118    0.9105    0.9105      1621
+
+2026-04-08 20:17:43 INFO     Evaluation Time:[36.9 s]	  Eval Loss   = 3.9119
+2026-04-08 20:17:43 INFO     acc:0.9105	precision:0.9114	recall:0.9109	f1:0.9105	
+2026-04-08 20:17:43 INFO     EarlyStopping Counter: 2 out of 50. Best at epoch 44. Best acc: 0.9278
+2026-04-08 20:20:29 INFO     ----------------------------------------------------Epoch 47----------------------------------------------------
+2026-04-08 20:20:29 INFO     Memory Usage: Total: 95.59 GB	Used: 31.14 GB	Free: 64.45 GB
+2026-04-08 20:20:29 INFO     Training Time :[165.7 s]	Training Loss = 0.0003
+2026-04-08 20:21:07 INFO     Best threshold: 0.01
+2026-04-08 20:21:07 INFO                   precision    recall  f1-score   support
+
+           0     0.8925    0.9349    0.9132       799
+           1     0.9337    0.8905    0.9116       822
+
+    accuracy                         0.9124      1621
+   macro avg     0.9131    0.9127    0.9124      1621
+weighted avg     0.9134    0.9124    0.9124      1621
+
+2026-04-08 20:21:07 INFO     Evaluation Time:[38.5 s]	  Eval Loss   = 3.8018
+2026-04-08 20:21:07 INFO     acc:0.9124	precision:0.9131	recall:0.9127	f1:0.9124	
+2026-04-08 20:21:07 INFO     EarlyStopping Counter: 3 out of 50. Best at epoch 44. Best acc: 0.9278
+2026-04-08 20:23:51 INFO     ----------------------------------------------------Epoch 48----------------------------------------------------
+2026-04-08 20:23:51 INFO     Memory Usage: Total: 95.59 GB	Used: 41.86 GB	Free: 53.73 GB
+2026-04-08 20:23:51 INFO     Training Time :[163.8 s]	Training Loss = 0.0001
+2026-04-08 20:24:35 INFO     Best threshold: 0.01
+2026-04-08 20:24:35 INFO                   precision    recall  f1-score   support
+
+           0     0.9007    0.9312    0.9157       799
+           1     0.9308    0.9002    0.9153       822
+
+    accuracy                         0.9155      1621
+   macro avg     0.9158    0.9157    0.9155      1621
+weighted avg     0.9160    0.9155    0.9155      1621
+
+2026-04-08 20:24:35 INFO     Evaluation Time:[43.7 s]	  Eval Loss   = 3.7976
+2026-04-08 20:24:35 INFO     acc:0.9155	precision:0.9158	recall:0.9157	f1:0.9155	
+2026-04-08 20:24:35 INFO     EarlyStopping Counter: 4 out of 50. Best at epoch 44. Best acc: 0.9278
+2026-04-08 20:27:20 INFO     ----------------------------------------------------Epoch 49----------------------------------------------------
+2026-04-08 20:27:20 INFO     Memory Usage: Total: 95.59 GB	Used: 36.36 GB	Free: 59.23 GB
+2026-04-08 20:27:20 INFO     Training Time :[165.6 s]	Training Loss = 0.0000
+2026-04-08 20:28:02 INFO     Best threshold: 0.01
+2026-04-08 20:28:02 INFO                   precision    recall  f1-score   support
+
+           0     0.9155    0.9224    0.9190       799
+           1     0.9240    0.9173    0.9206       822
+
+    accuracy                         0.9198      1621
+   macro avg     0.9198    0.9198    0.9198      1621
+weighted avg     0.9198    0.9198    0.9198      1621
+
+2026-04-08 20:28:02 INFO     Evaluation Time:[41.9 s]	  Eval Loss   = 3.6264
+2026-04-08 20:28:02 INFO     acc:0.9198	precision:0.9198	recall:0.9198	f1:0.9198	
+2026-04-08 20:28:02 INFO     EarlyStopping Counter: 5 out of 50. Best at epoch 44. Best acc: 0.9278
+2026-04-08 20:30:50 INFO     ----------------------------------------------------Epoch 50----------------------------------------------------
+2026-04-08 20:30:50 INFO     Memory Usage: Total: 95.59 GB	Used: 36.36 GB	Free: 59.23 GB
+2026-04-08 20:30:50 INFO     Training Time :[167.3 s]	Training Loss = 0.0000
+2026-04-08 20:31:31 INFO     Best threshold: 0.02
+2026-04-08 20:31:31 INFO                   precision    recall  f1-score   support
+
+           0     0.9091    0.9262    0.9175       799
+           1     0.9269    0.9100    0.9184       822
+
+    accuracy                         0.9180      1621
+   macro avg     0.9180    0.9181    0.9179      1621
+weighted avg     0.9181    0.9180    0.9180      1621
+
+2026-04-08 20:31:31 INFO     Evaluation Time:[41.4 s]	  Eval Loss   = 3.6115
+2026-04-08 20:31:31 INFO     acc:0.9180	precision:0.9180	recall:0.9181	f1:0.9179	
+2026-04-08 20:31:31 INFO     EarlyStopping Counter: 6 out of 50. Best at epoch 44. Best acc: 0.9278
+2026-04-08 20:31:31 INFO     ------------------------------------------------Best Evaluation------------------------------------------------
+2026-04-08 20:31:31 INFO     Best Result at Epoch: 44	 Early Stop at Patience: 50
+2026-04-08 20:31:31 INFO     acc:0.9278	precision:0.9278	recall:0.9279	f1:0.9278	
+2026-04-08 20:32:14 INFO     Best threshold: 0.16
+2026-04-08 20:32:15 INFO                   precision    recall  f1-score   support
+
+           0     0.9247    0.9224    0.9236       799
+           1     0.9248    0.9270    0.9259       822
+
+    accuracy                         0.9247      1621
+   macro avg     0.9247    0.9247    0.9247      1621
+weighted avg     0.9247    0.9247    0.9247      1621
+
+2026-04-08 20:32:56 INFO     Best threshold: 0.12
+2026-04-08 20:32:56 INFO                   precision    recall  f1-score   support
+
+           0     0.9261    0.9249    0.9255       799
+           1     0.9271    0.9282    0.9277       822
+
+    accuracy                         0.9266      1621
+   macro avg     0.9266    0.9266    0.9266      1621
+weighted avg     0.9266    0.9266    0.9266      1621
+
+2026-04-08 20:32:56 INFO     -----------------------------------------------------Test Results------------------------------------------------------
+2026-04-08 20:32:56 INFO     acc:0.9266	precision:0.9266	recall:0.9266	f1:0.9266	
+2026-04-08 20:32:56 INFO                   precision    recall  f1-score   support
+
+           0     0.9261    0.9249    0.9255       799
+           1     0.9271    0.9282    0.9277       822
+
+    accuracy                         0.9266      1621
+   macro avg     0.9266    0.9266    0.9266      1621
+weighted avg     0.9266    0.9266    0.9266      1621
+
